@@ -5,7 +5,7 @@ Download
 First, clone project:
 
 # clone
-git clone https://github.com/bedulrzl/CRUD-laravelAngular.git
+git clone https://github.com/bedulrzl/CRUD-Laravel-angular
 
 # Access project
 cd CRUD-LaravelAngular / server &
