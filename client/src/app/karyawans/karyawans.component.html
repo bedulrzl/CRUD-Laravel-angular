@@ -1,0 +1,96 @@
+<form [formGroup]="form" class="form mb-3" (submit)="
+        add(karyawanName.value, karyawanDob.value, karyawanGender.value, karyawanDepartment.value);
+        karyawanName.value=''; karyawanDob.value=''; karyawanGender.value=''; karyawanDepartment.value=''">
+  <div class="form-group">
+    <input #karyawanName id="name" name="name" type="text" class="form-control" placeholder="Name">
+  </div>
+  <div class="form-group">
+    <input #karyawanDob
+        id="dob" type="text"
+        name="dob" class="form-control" placeholder="dob"
+         #datepickerYMD="bsDatepicker"
+        bsDatepicker
+        formControlName="dateYMD"
+        [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
+        >
+  </div>
+  <!-- <div class="form-group">
+    <input #karyawanGender id="gender"  name="gender" type="text" class="form-control" placeholder="gender">
+  </div> -->
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGroupSelect01">gender</label>
+    </div>
+    <select #karyawanGender class="custom-select" id="gender">
+      <option selected>Choose...</option>
+      <option value="Laki-laki">Laki-laki</option>
+      <option value="Perempuan">Perempuan</option>
+    </select>
+  </div>
+  <!-- <div class="form-group">
+    <input #karyawanDepartment id="department"  name="department" type="text" class="form-control" placeholder="department">
+  </div> -->
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGroupSelect01">Department</label>
+    </div>
+    <select #karyawanDepartment id="department" class="custom-select">
+      <option selected>Choose...</option>
+      <option value="IT">IT</option>
+      <option value="HRD">HRD</option>
+      <option value="Marketing">Marketing</option>
+    </select>
+  </div>
+  <input type="submit" value="SUBMIT" class="btn btn-success btn-lg btn-block">
+</form>
+
+<div class="search-hero mb-3 mt-5 float-right w-50">
+  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="searching for a karyawan by id or name or etc ">
+</div>
+
+<table class="table">
+  <tr *ngFor="let karyawan of karyawans | filter:searchText">
+    <td class="text-left">
+      <a (click)="edit(karyawan)">
+        <span *ngIf="karyawan!==editKaryawan">{{karyawan.name}}</span>
+        <input *ngIf="karyawan===editKaryawan" [(ngModel)]="karyawan.name" (blur)="update()" (keyup.enter)="update()">
+      </a>
+    </td>
+    <td class="text-left">
+        <a (click)="edit(karyawan)">
+          <span *ngIf="karyawan!==editKaryawan">{{karyawan.dob}}</span>
+           <input *ngIf="karyawan===editKaryawan" [(ngModel)]="karyawan.dob" (blur)="update()" (keyup.enter)="update()">
+          <!-- <div [formGroup]="form">
+            <input *ngIf="karyawan===editKaryawan" [(ngModel)]="karyawan.dob" (blur)="update()" (keyup.enter)="update()"
+            #datepickerYMD="bsDatepicker"
+           bsDatepicker
+           formControlName="dateYMD"
+           [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
+           >
+          </div> -->
+
+        </a>
+      </td>
+      <td class="text-left">
+          <a (click)="edit(karyawan)">
+            <span *ngIf="karyawan!==editKaryawan">{{karyawan.gender}}</span>
+            <input *ngIf="karyawan===editKaryawan" [(ngModel)]="karyawan.gender" (blur)="update()" (keyup.enter)="update()">
+          </a>
+        </td>
+        <td class="text-left">
+            <a (click)="edit(karyawan)">
+              <span *ngIf="karyawan!==editKaryawan">{{karyawan.department}}</span>
+              <input *ngIf="karyawan===editKaryawan" [(ngModel)]="karyawan.department" (blur)="update()" (keyup.enter)="update()">
+            </a>
+          </td>
+    <td class="text-right">
+      <button class="btn btn-danger" (click)="delete(karyawan)">
+        delete
+      </button>
+    </td>
+  </tr>
+</table>
+
+<div class="card card-body bg-light text-center">
+  <span class="small"> klik item untuk edit</span>
+</div>
